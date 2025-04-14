@@ -1,0 +1,334 @@
+<div hidden class="content-body">
+            <section id="dashboard-ecommerce">
+                <div class="row match-height">
+                    <!-- Medal Card -->
+
+                    <!--/ Medal Card -->
+
+                    <!-- Statistics Card -->
+                    <div class="col-xl-12 col-md-6 col-12">
+                        <div class="card card-statistics">
+                            <div class="card-header">
+                                <h4 class="card-title">Statistiques</h4>
+                                <div class="d-flex align-items-center">
+                                    <p class="card-text font-small-2 mr-25 mb-0" id="last-updated">Updated {{ $updated_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                            <div class="card-body statistics-body">
+                                <div class="row">
+                                    <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                                        <div class="media">
+                                            <div class="avatar bg-light-primary mr-2">
+                                                <div class="avatar-content">
+                                                    <i data-feather="trending-up" class="avatar-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="media-body my-auto">
+                                                <h4 class="font-weight-bolder mb-0">{{ $debatesCount }}</h4>
+                                                <p class="card-text font-small-3 mb-0">Sujets reçus</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                                        <div class="media">
+                                            <div class="avatar bg-light-info mr-2">
+                                                <div class="avatar-content">
+                                                    <i data-feather="check-square" class="avatar-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="media-body my-auto">
+                                                <h4 class="font-weight-bolder mb-0">{{ $validDebatesCount }}</h4>
+                                                <p class="card-text font-small-3 mb-0">Sujets validés</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                                        <div class="media">
+                                            <div class="avatar bg-light-danger mr-2">
+                                                <div class="avatar-content">
+                                                    <i data-feather="message-square" class="avatar-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="media-body my-auto">
+                                                <h4 class="font-weight-bolder mb-0">{{ $commentsCount }}</h4>
+                                                <p class="card-text font-small-3 mb-0">Commentaires</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 col-12">
+                                        <div class="media">
+                                            <div class="avatar bg-light-success mr-2">
+                                                <div class="avatar-content">
+                                                    <i data-feather="users" class="avatar-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="media-body my-auto">
+                                                <h4 class="font-weight-bolder mb-0">{{ $usersCount }}</h4>
+                                                <p class="card-text font-small-3 mb-0">Utilisateurs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Statistics Card -->
+                </div>
+
+                <div class=" row match-height">
+                    <div class="col-lg-4 col-12">
+                        <div class="row match-height">
+                            <!-- Bar Chart - Orders -->
+
+                            <!-- Stats Card -->
+                            <div class="col-lg-12 col-md-6 col-12">
+                                <div class="card earnings-card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h4 class="card-title mb-1">Sujets non-actifs</h4>
+                                                <div class="font-small-2">Ce mois</div>
+                                                <h5 class="mb-1">{{ $debateStatistics->last()->closed_count ?? 0 }}</h5>
+                                                <p class="card-text text-muted font-small-2">
+                                                    <span class="font-weight-bolder">{{ $percentageIncreaseClosed ?? 0 }}%</span>
+                                                    <span> </span>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <h4 class="card-title mb-1">Sujets Actifs</h4>
+                                                <div class="font-small-2">Ce mois</div>
+                                                <h5 class="mb-1">{{ $debateStatistics->last()->open_count ?? 0 }}</h5>
+                                                <div id="earnings-chart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!--/ Earnings Card -->
+                        </div>
+                    </div>
+
+                    <!-- debate Report Card -->
+                    <div class="col-lg-8 col-12">
+                        <div class="card card-revenue-budget">
+                            <div class="row mx-0">
+                                <div class="col-md-8 col-12 revenue-report-wrapper">
+                                    <div class="d-sm-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="card-title mb-50 mb-sm-0">Statistiques sujets de débat</h4>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center mr-2">
+                                                <span class="bullet bullet-primary font-small-3 mr-50 cursor-pointer"></span>
+                                                <span>Débats Actifs</span>
+                                            </div>
+                                            <div class="d-flex align-items-center ml-75">
+                                                <span class="bullet bullet-warning font-small-3 mr-50 cursor-pointer"></span>
+                                                <span>Débats Non-Actifs</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="revenue-report-charts"></div> <!-- Chart will be rendered here -->
+                                    <div hidden id="revenue-report-chart"></div> <!-- Chart will be rendered here -->
+                                </div>
+                                <div class="col-md-4 col-12 budget-wrapper">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle budget-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ date('Y') }}
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="javascript:void(0);">2020</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">2019</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">2018</a>
+                                        </div>
+                                    </div>
+                                    <h2 class="mb-25">{{ number_format($debateStatistics->sum('open_count'), 0) }} Actifs</h2> <!-- Total Open Debates -->
+                                    <div class="d-flex justify-content-center">
+                                        <span class="font-weight-bolder mr-25">Non-Actifs:</span>
+                                        <span>{{ number_format($debateStatistics->sum('closed_count'), 0) }}</span> <!-- Total Closed Debates -->
+                                    </div>
+                                    <div id="budget-chart"></div>
+                                    <button type="button" class="btn btn-primary">Booster Interactions</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--/ debate Report Card -->
+                </div>
+
+                <div class=" row match-height">
+                    <section class="col-lg-12" id="basic-datatable">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="p-2">
+                                        <button class="toggle btn btn-success " onclick="filterStatus('acceptés')">Acceptés</button>
+                                        <button class="toggle  btn btn-warning " onclick="filterStatus('refusés')">Refusés</button>
+                                    </div>
+                                    <table id="debatsTable" class="debatsTable datatables-basic table">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Sn</th>
+                                                <th>Sujets</th>
+                                                <th>Proposé par</th>
+                                                <th>Date de propositions</th>
+                                                <th>Status</th>
+                                                <th>Commentaires</th>
+                                                <th>Votes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($debates as $index => $debate)
+                                            <tr>
+
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $debate->titre }}</td>
+                                                <td> {{ $debate->user->name }}</td>
+                                                <!-- <td> $debate->user->nom</td> -->
+                                                <td>{{ $debate->created_at->format('d-m-Y') }}</td>
+                                                <td><span class="badge badge-pill  {{$debate->statut == 'Open' ? 'badge-light-info' : 'badge-light-danger'}}">{{ $debate->statut }} </span></td>
+                                                <td>{{ $commentaires->where('id_debat', $debate->id_debat)->count() }}</td>
+                                                <td>{{ $votes->where('id_debat', $debate->id_debat)->count() }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+
+
+// scripts
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const chartElement = document.querySelector("#revenue-report-charts");
+        var $barColor = '#f3f3f3';
+        var $trackBgColor = '#EBEBEB';
+        var $textMutedColor = '#b9b9c3';
+        var $budgetStrokeColor2 = '#dcdae3';
+        var $goalStrokeColor2 = '#51e5a8';
+        var $strokeColor = '#ebe9f1';
+        var $textHeadingColor = '#5e5873';
+        var $earningsStrokeColor2 = '#28c76f66';
+        var $earningsStrokeColor3 = '#28c76f33';
+        if (chartElement) { // Ensure the chart element exists
+            const debateStats = @json($debateStatistics); // Pass data from the backend
+
+            const months = debateStats.map(item => item.month); // ['2021-01', '2021-02', ...]
+            const openDebatesCount = debateStats.map(item => item.open_count); // [count1, count2, ...]
+            const closedDebatesCount = debateStats.map(item => item.closed_count); // [count1, count2, ...]
+
+            const debateStatisticsChartOptions = {
+                chart: {
+                    height: 230,
+                    stacked: true,
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '17%',
+                        endingShape: 'rounded'
+                    },
+                    distributed: true
+                },
+                colors: [window.colors.solid.primary, window.colors.solid.warning],
+                series: [{
+                        name: 'Débats Actifs',
+                        data: openDebatesCount // Data for open debates
+                    },
+                    {
+                        name: 'Débats Non-Actifs',
+                        data: closedDebatesCount // Data for closed debates
+                    }
+                ],
+                dataLabels: {
+                    enabled: false
+                },
+                legend: {
+                    show: false
+                },
+                grid: {
+                    padding: {
+                        top: -20,
+                        bottom: -10
+                    },
+                    yaxis: {
+                        lines: {
+                            show: false
+                        }
+                    }
+                },
+                xaxis: {
+                    categories: months, // Months (e.g., '2021-01', '2021-02', ...)
+                    labels: {
+                        style: {
+                            colors: $textMutedColor,
+                            fontSize: '0.86rem'
+                        }
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    axisBorder: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: $textMutedColor,
+                            fontSize: '0.86rem'
+                        }
+                    }
+                }
+            };
+
+            // Create the chart using ApexCharts
+            const debateStatisticsChart = new ApexCharts(chartElement, debateStatisticsChartOptions);
+            debateStatisticsChart.render();
+        } else {
+            console.error('Element with ID "revenue-report-chart" not found');
+        }
+    });
+</script>
+
+<script>
+    const lastUpdatedTime = "{{ $updated_at->toIso8601String() }}";
+    document.addEventListener("DOMContentLoaded", function() {
+        const lastUpdatedTimeElement = document.getElementById("last-updated");
+        const lastUpdatedDate = new Date(lastUpdatedTime); // Parse the passed timestamp
+
+        function updateLastUpdated() {
+            const now = new Date();
+            const timeDifference = Math.floor((now - lastUpdatedDate) / 1000); // Difference in seconds
+
+            let displayText;
+            if (timeDifference < 60) {
+                displayText = "Updated just now";
+            } else if (timeDifference < 3600) {
+                displayText = `Updated ${Math.floor(timeDifference / 60)} minutes ago`;
+            } else if (timeDifference < 86400) {
+                displayText = `Updated ${Math.floor(timeDifference / 3600)} hours ago`;
+            } else {
+                displayText = `Updated ${Math.floor(timeDifference / 86400)} days ago`;
+            }
+
+            lastUpdatedTimeElement.textContent = displayText;
+        }
+
+        updateLastUpdated();
+        setInterval(updateLastUpdated, 60000); // Update every minute
+    });
+</script>
